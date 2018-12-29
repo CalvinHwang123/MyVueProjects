@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>06_列表渲染_过滤与排序</title>
+</head>
+<body>
+<!--
+1. 列表过滤
+2. 列表排序
+-->
+
+<div id="demo">
+  <input type="text" name="" v-model="searchName" />
+  <ul>
+    <li v-for="(p, index) in filterPersons" :key="index">
+      {{ index }} --> {{ p.name }} --> {{ p.age }}
+    </li>
+  </ul>
+  <button @click="setOrderType(1)">年龄 asc</button>
+  <button @click="setOrderType(2)">年龄 desc</button>
+  <button @click="setOrderType(0)">默认排序</button>
+
+  <button @click="orderType = 1">年龄 asc</button>
+  <button @click="orderType = 2">年龄 desc</button>
+  <button @click="orderType = 0">默认排序</button>
+</div>
+
+<script type="text/javascript" src="../js/vue.js"></script>
+<script type="text/javascript">
+  new Vue({
+    el: '#demo',
+    data: {
+      searchName: '',
+      orderType: 0, // 0 默认排序 1 年龄升序 2 年龄降序
+      persons: [ // vue 本身只是监视了 persons 对象的改变，没有监视数组内部数据的改变
+        {name: 'Tom', age:18},
+        {name: 'Jack', age:17},
+        {name: 'Bob', age:19},
+        {name: 'Mary', age:16}
+      ]
+    },
+
+    computed: {
+      filterPersons() {
+        // 取出相关数据
+        const { searchName, persons, orderType } = this;
+        let fPersons; // 最终显示的数组
+        // 对 persons 过滤
+        fPersons = persons.filter(p => p.name.indexOf(searchName) !== -1);
+        // fPersons = persons.filter(p => p.name.toLowerCase().indexOf(searchName.toLowerCase()) !== -1); // 忽略大小写
+        
+        if (orderType !== 0) {
+          fPersons.sort(function (p1, p2) {
+            // 1 年龄升序 2 年龄降序
+            if (orderType === 1) {
+              return p1.age - p2.age; // return < 0
+            } else {
+              return p2.age - p1.age;
+            }
+            
+          })
+        }
+
+        return fPersons;
+      }
+    },
+
+    methods: {
+      setOrderType(orderType) {
+        this.orderType = orderType;
+      }
+    }
+
+    
+  })
+</script>
+</body>
+</html>

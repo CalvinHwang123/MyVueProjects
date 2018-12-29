@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>hello vuejs</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<!--模板-->
+<div id="app">
+  <input type="text" v-model="msg"><br><!--指令-->
+  <p>hello {{msg}}</p><!--大括号表达式-->
+</div>
+
+<script type="text/javascript">
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      msg: 'vue'
+    }
+  })
+</script>
+
+</body>
+</html>

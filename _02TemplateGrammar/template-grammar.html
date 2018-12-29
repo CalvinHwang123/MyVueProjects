@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>vue 模板语法</title>
+  <script type="text/javascript" src="../js/vue.js"></script>
+</head>
+<body>
+
+<!--模板-->
+<div id="app">
+  <input type="text" v-model="msg"><br><!--指令-->
+  <p>hello {{msg}}</p><!--大括号表达式-->
+  <p>hello {{msg.toUpperCase()}}</p><!--大括号表达式-->
+
+  <p>{{ msg2 }}</p><!-- textContent -->
+  <p v-text="msg2"></p><!-- textContent -->
+  <p v-html="msg2"></p><!-- innerHTML -->
+
+  <!-- 指令一：强制数据绑定 -->
+  <img v-bind:src="imgUrl" />
+  <img :src="imgUrl" />
+
+  <!-- 指令二：绑定事件监听 -->
+  <button v-on:click="testHehe">hehe</button>
+  <button @click="testHehe2(msg)">hehe</button>
+
+</div>
+
+<script type="text/javascript">
+  const vm = new Vue({
+    el: '#app',
+    data: {
+      msg: 'vue',
+      msg2: '<a href="#">点我干嘛</a>',
+      imgUrl: 'https://cn.vuejs.org/images/logo.png'
+    },
+    methods: {
+      testHehe: function () { alert('呵呵') },
+      testHehe2(msg) { alert(msg) }
+    }
+  })
+</script>
+
+</body>
+</html>
